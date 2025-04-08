@@ -29,11 +29,9 @@ jobs:
         run: npm install
 
       - name: Install Android SDK
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: google_apis
-          arch: x86_64
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk android-sdk android-sdk-platform-tools
 
       - name: Build Android release APK
         run: cd android && ./gradlew assembleRelease
@@ -43,4 +41,3 @@ jobs:
         with:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/app-release.apk
-          
