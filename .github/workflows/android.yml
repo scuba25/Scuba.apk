@@ -28,10 +28,10 @@ jobs:
         run: npm install
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: reactivecircus/android-emulator-runner@v2
 
       - name: Make gradlew executable
-        run: chmod +x android/gradlew
+        run: chmod +x ./android/gradlew
 
       - name: Build Android release APK
         run: cd android && ./gradlew assembleRelease
