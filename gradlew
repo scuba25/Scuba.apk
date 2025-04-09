@@ -72,6 +72,7 @@ fi
 
 # For Cygwin, ensure path is in UNIX format before using it
 if $cygwin; then
+  true
 fi
 
 # Change current directory to where the script is located
