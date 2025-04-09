@@ -25,15 +25,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set up Android SDK
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 31
-          target: google_apis
-          arch: x86_64
-          disable-animations: true
-          emulator-options: "-no-window -no-audio -gpu swiftshader_indirect"
-
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
