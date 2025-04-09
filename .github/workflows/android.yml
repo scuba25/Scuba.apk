@@ -16,13 +16,14 @@ jobs:
                   distribution: 'temurin'
                   java-version: 17
 
-            - name: Build APK using Gradle Wrapper (Direct Java)
-              run: |
-                cd android
-                java -classpath "./gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain assembleRelease
+            - name: Grant execute permission for gradlew
+              run: chmod +x gradlew
+
+            - name: Build APK using Gradle Wrapper
+              run: ./gradlew assembleRelease
 
             - name: Upload release APK
               uses: actions/upload-artifact@v4
               with:
                   name: release-apk
-                  path: app/build/outputs/apk/release/*.apk # Verify this path
+                  path: android/app/build/outputs/apk/release/*.apk # Verify this patha
