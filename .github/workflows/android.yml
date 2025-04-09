@@ -28,14 +28,20 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
-      - name: Initialize Gradle Wrapper and Build
+      - name: Download and Execute Gradle Wrapper
         run: |
           cd android
-          chmod +x ./gradlew # Ensure execute permission again
-          ./gradlew wrapper --gradle-version 8.2.1 # Or the version in your properties
-          ls -l ./gradle/wrapper/gradle-wrapper.jar # Verify JAR
+          # Create the wrapper directory if it doesn't exist
+          mkdir -p ./gradle/wrapper
 
-          # Try running the build directly with java
+          # Download the Gradle Wrapper JAR directly
+          wget https://services.gradle.org/distributions/gradle-8.2.1-bin.zip -O gradle-distribution.zip
+          unzip gradle-distribution.zip -d gradle-distribution
+          cp gradle-distribution/gradle-8.2.1/lib/gradle-launcher-8.2.1.jar ./gradle/wrapper/gradle-wrapper.jar
+
+          ls -l ./gradle/wrapper/gradle-wrapper.jar # Verify download
+
+          # Execute the build using the downloaded JAR
           java -classpath "./gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain assembleRelease
 
       - name: Upload release APK
