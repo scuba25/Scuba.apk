@@ -28,12 +28,12 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
-      - name: Build Android release APK
+      - name: Initialize Gradle Wrapper and Build
         run: |
           cd android
-          java -version
-          ls -l ./gradle/wrapper/gradle-wrapper.jar
-          java -jar ./gradle/wrapper/gradle-wrapper.jar assembleRelease
+          ./gradlew wrapper --gradle-version 8.2.1 # Or the version in your properties
+          ls -l ./gradle/wrapper/gradle-wrapper.jar # Verify the JAR file
+          ./gradlew assembleRelease
 
       - name: Upload release APK
         uses: actions/upload-artifact@v4
