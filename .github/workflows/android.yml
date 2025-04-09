@@ -20,8 +20,9 @@ jobs:
               uses: gradle/gradle-build-action@v2
               with:
                   gradle-version: 8.2.1 # Or your version
-                  arguments: :app:assembleRelease # Explicitly target the app subproject
-                  working-directory: ./android
+                  arguments: assembleRelease
+                  build-file: ./android/build.gradle
+                  working-directory: ./
 
             - name: Upload release APK
               uses: actions/upload-artifact@v4
