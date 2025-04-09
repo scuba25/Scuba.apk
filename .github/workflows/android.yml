@@ -16,6 +16,9 @@ jobs:
                   distribution: 'temurin'
                   java-version: 17
 
+            - name: List Gradle Wrapper contents
+              run: ls -l android/gradle/wrapper/
+
             - name: Build APK using JAR directly
               run: cd android && java -classpath "./gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain assembleRelease
 
