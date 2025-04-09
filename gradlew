@@ -71,8 +71,7 @@ if [ -n "$JAVA_HOME" ]; then
 fi
 
 # For Cygwin, ensure path is in UNIX format before using it
-if $cygwin; then
-  DIRNAME=`cygpath -u "$DIRNAME"`
+if
 fi
 
 # Change current directory to where the script is located
