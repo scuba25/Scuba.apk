@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
@@ -20,14 +19,34 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
 
-      - name: Build release APK
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Android SDK
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          force-avd-creation: true
+          emulator-options: -no-window -no-audio -no-boot-anim
+          disable-animations: true
+          script: echo "Android SDK is set up"
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build Android release APK
         run: ./gradlew assembleRelease
 
       - name: Upload release APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: app/build/outputs/apk/release/*.apk
+          name: release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          
