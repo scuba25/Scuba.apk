@@ -16,11 +16,12 @@ jobs:
                   distribution: 'temurin'
                   java-version: 17
 
-            - name: Grant execute permission for gradlew
-              run: chmod +x android/gradlew
-
-            - name: Build APK
-              run: cd android && ./gradlew assembleRelease
+            - name: Build with Gradle
+              uses: gradle/gradle-build-action@v2
+              with:
+                  gradle-version: 8.2.1 # Or your version
+                  arguments: assembleRelease
+                  working-directory: ./android
 
             - name: Upload release APK
               uses: actions/upload-artifact@v4
