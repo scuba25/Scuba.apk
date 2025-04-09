@@ -18,7 +18,7 @@ jobs:
           java-version: 17
 
       - name: Navigate to app directory
-        run: cd android/app
+        run: cd android
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: app/build/outputs/apk/release/app-release.apk # Note the adjusted path here
+          path: app/build/outputs/apk/release/app-release.apk # Ensure this path is correct relative to your build output
