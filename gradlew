@@ -33,45 +33,45 @@ DIRNAME=`dirname "$0"`
 
 # OS specific support (must be 'cygwin', 'darwin', 'os2', 'os/400', 'hpux', 'aix', 'linux', 'sunos')
 case "`uname -s`" in
-  cygwin*)
-    cygwin=true
-    ;;
-  darwin*)
-    darwin=true
-    ;;
-  os2*)
-    os2=true
-    ;;
-  os/400*)
-    os400=true
-    ;;
-  hpux*)
-    hpux=true
-    ;;
-  aix*)
-    aix=true
-    ;;
-  linux*)
-    linux=true
-    ;;
-  sunos*)
-    sunos=true
-    ;;
-  *)
-    ;;
+cygwin*)
+cygwin=true
+;;
+darwin*)
+darwin=true
+;;
+os2*)
+os2=true
+;;
+os/400*)
+os400=true
+;;
+hpux*)
+hpux=true
+;;
+aix*)
+aix=true
+;;
+linux*)
+linux=true
+;;
+sunos*)
+sunos=true
+;;
+*)
+;;
 esac
 
 if [ -n "$JAVA_HOME" ]; then
-  if [ ! -x "$JAVA_HOME/bin/java" ]; then
-    echo "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME"
-    echo "Please set the JAVA_HOME variable in your environment to match the"
-    echo "location of your Java installation."
-    exit 1
-  fi
+if [ ! -x "$JAVA_HOME/bin/java" ]; then
+echo "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME"
+echo "Please set the JAVA_HOME variable in your environment to match the"
+echo "location of your Java installation."
+exit 1
+fi
 fi
 
 # For Cygwin, ensure path is in UNIX format before using it
-if
+if $cygwin; then
 fi
 
 # Change current directory to where the script is located
@@ -79,23 +79,23 @@ cd "$DIRNAME"
 
 # Find the best way to run java
 if [ -n "$JAVA_HOME" ]; then
-  RUN_JAVA="$JAVA_HOME/bin/java"
+RUN_JAVA="$JAVA_HOME/bin/java"
 else
-  if [ -n "`which java`" ]; then
-    RUN_JAVA="java"
-  else
-    echo "ERROR: Neither JAVA_HOME nor java command in PATH found"
-    echo "Please set the JAVA_HOME variable in your environment to match the"
-    echo "location of your Java installation."
-    exit 1
-  fi
+if [ -n "`which java`" ]; then
+RUN_JAVA="java"
+else
+echo "ERROR: Neither JAVA_HOME nor java command in PATH found"
+echo "Please set the JAVA_HOME variable in your environment to match the"
+echo "location of your Java installation."
+exit 1
+fi
 fi
 
 # Increase maxPermSize for running Gradle under Java 8
 case "`$RUN_JAVA -version 2>&1 | head -n 1`" in
-  *"version \"1.8."*)
-    DEFAULT_JVM_OPTS="$DEFAULT_JVM_OPTS -XX:MaxPermSize=256m"
-    ;;
+*"version \"1.8."*)
+DEFAULT_JVM_OPTS="$DEFAULT_JVM_OPTS -XX:MaxPermSize=256m"
+;;
 esac
 
 # Collect JVM options and arguments for Gradle
@@ -104,16 +104,16 @@ ARGS=""
 
 # Add arguments passed to this script
 for ARG in "$@"; do
-  ARGS="$ARGS \"$ARG\""
+ARGS="$ARGS \"$ARG\""
 done
 
 # Determine the classpath for running Gradle
 if [ "$USE_CLASSPATH" = "YES" ]; then
-  CLASSPATH=$(ls -d "$DIRNAME/gradle/lib/"*.jar | tr '\n' ':')
-  CLASSPATH="$CLASSPATH$(ls -d "$DIRNAME/gradle/lib/plugins/"*.jar | tr '\n' ':')"
-  RUN_ARGS="$RUN_JAVA $JVM_OPTS -classpath \"$CLASSPATH\" org.gradle.launcher.GradleMain $ARGS"
+CLASSPATH=$(ls -d "$DIRNAME/gradle/lib/"*.jar | tr '\n' ':')
+CLASSPATH="$CLASSPATH$(ls -d "$DIRNAME/gradle/lib/plugins/"*.jar | tr '\n' ':')"
+RUN_ARGS="$RUN_JAVA $JVM_OPTS -classpath \"$CLASSPATH\" org.gradle.launcher.GradleMain $ARGS"
 else
-  RUN_ARGS="$RUN_JAVA $JVM_OPTS -Dorg.gradle.appname=\"$APP_BASE_NAME\" -classpath \"$DIRNAME/gradle/wrapper/gradle-wrapper.jar\" org.gradle.wrapper.GradleWrapperMain $ARGS"
+RUN_ARGS="$RUN_JAVA $JVM_OPTS -Dorg.gradle.appname=\"$APP_BASE_NAME\" -classpath \"$DIRNAME/gradle/wrapper/gradle-wrapper.jar\" org.gradle.wrapper.GradleWrapperMain $ARGS"
 fi
 
 # Execute Gradle
