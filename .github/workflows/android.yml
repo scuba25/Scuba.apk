@@ -16,13 +16,15 @@ jobs:
                   distribution: 'temurin'
                   java-version: 17
 
-            - name: Build with Gradle Action (Force Download)
+            - name: Build with Gradle Action (Target App Module)
               uses: gradle/gradle-build-action@v2
               with:
                   gradle-version: 8.2.1 # Or your desired version
-                  arguments: assembleRelease
+                  arguments: :app:assembleRelease # Explicitly target the 'app' module
+                  working-directory: ./android
+                  gradle-user-home: ~/.gradle
                   build-file: ./android/build.gradle
-                  force-gradle-download: true # Force a fresh download
+                  wrapper-directory: ./android/gradle/wrapper
 
             - name: Upload release APK
               uses: actions/upload-artifact@v4
