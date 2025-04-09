@@ -31,10 +31,9 @@ jobs:
       - name: Build Android release APK
         run: |
           cd android
-          ls -l ./gradlew # List permissions to verify
-          chmod +x ./gradlew
-          ls -l ./gradlew # List permissions again after chmod
-          bash ./gradlew assembleRelease
+          java -version
+          ls -l ./gradle/wrapper/gradle-wrapper.jar
+          java -jar ./gradle/wrapper/gradle-wrapper.jar assembleRelease
 
       - name: Upload release APK
         uses: actions/upload-artifact@v4
